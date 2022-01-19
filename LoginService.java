@@ -33,17 +33,17 @@ public void delete(Long id) {
     repo.deleteById(id);
 }
 
-public Login get(String username) {
-    return repo.findByusername(username).get();
+public Login get(String Username) {
+    return repo.findByUsername(Username).get();
 }
  
-public void delete(String username) {
-    repo.deleteByusername(username);
+public void delete(String Username) {
+    repo.deleteByUsername(Username);
 }
 
 
-  public Login login(String mentscape_username,String mentscape_Emailid, String mentscape_password) {
-  Login user = repo.findByUsernameAndPassword(mentscape_username,mentscape_Emailid,mentscape_password);
+  public Login login(String Username,String Emailid, String Password) {
+  Login user = repo.findByUsernameAndPassword(Username,Password);
    return user;
   }
  

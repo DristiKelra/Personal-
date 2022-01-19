@@ -3,17 +3,20 @@ package com.example.Mentscape.Loginrepository;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import com.example.Mentscape.Logindomain.Login;
 
 public interface LoginRepository extends JpaRepository<Login, Long>
 {
-Login findByUsernameAndPassword(String mentscape_username,String mentscape_Emailid,String mentscape_password);
+	Login findByUsernameAndPassword(String Username,String Password);
 
-Optional<Login> findByusername(String username);
+	Optional<Login> findByUsername(String Username);
 
-void deleteByusername(String username);
+	void deleteByUsername(String Username);
+	
+	void deleteById (Long id);
+	
+
+
 
 
  

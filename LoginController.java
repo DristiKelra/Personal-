@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
  
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,29 +16,38 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.Mentscape.LoginService.LoginService;
 import com.example.Mentscape.Logindomain.Login;
+import com.example.Mentscape.Loginrepository.LoginRepository;
 
  
 @Controller
 public class LoginController {
+	 @Autowired
+	    private LoginRepository LoginRepo;
+	     
+	    @GetMapping("")
+	    public String viewHomePage() {
+	        return "index";
+	    }
+	
 @Autowired
-    private LoginService userService;
+    private LoginService LoginService;
  
      
-      public void setloginservice(LoginService userService) 
+      public void setloginservice(LoginService LoginService) 
       {
-    	 this.userService = userService;
+    	 this.LoginService = LoginService;
       }
-    @GetMapping("/mentscape_login")
+    @GetMapping("/login")
           
     public ModelAndView login() {
      ModelAndView mav = new ModelAndView("login");
         mav.addObject("user", new Login());
         return mav;
     }
-    @PostMapping("/mentscape_login")
+    @PostMapping("/login")
     public String login(@ModelAttribute("user") Login user ) {
     
-     Login oauthUser = userService.login(user.getUsername(), user.getEmailid(),user.getPassword());
+     Login oauthUser = LoginService.login(user.getUsername(), user.getEmailid(),user.getPassword());
     
  
      System.out.print(oauthUser);
@@ -62,6 +70,6 @@ public class LoginController {
     {
     
   
-        return "redirect:/login";
+        return "redirect:/index";
     }
 }

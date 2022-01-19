@@ -1,5 +1,6 @@
 package com.example.Mentscape.Logindomain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -7,26 +8,30 @@ import javax.persistence.Id;
 import javax.persistence.Table;
  
 @Entity
-@Table(name="mentscape_login")
-public class Login {
+@Table(name="login")
+public class Login 
+{
 	@Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long mentscape_Userid;
-	private String mentscape_username;
-    private String mentscape_Emailid;
-    private String mentscape_password;
+    private Long userid;
+	 @Column(name = "Username", nullable = false, length = 50)
+	private String username;
+	@Column(nullable = false, unique = true, length = 100)
+    private String emailid;
+	@Column(nullable = false, length = 50)
+    private String password;
  
     
 public Login()
 {
 }
  
-public Login(Long mentscape_Userid, String mentscape_username,String mentscape_Emailid ,String mentscape_password) 
+public Login(Long Userid, String Username,String Emailid ,String Password) 
 {
-	this.mentscape_Userid = mentscape_Userid;
-	this.mentscape_username =mentscape_username;
-	this.mentscape_Emailid = mentscape_Emailid;
-	this.mentscape_password = mentscape_password;
+	this.userid = Userid;
+	this.username =Username;
+	this.emailid = Emailid;
+	this.password = Password;
 }
 
 
@@ -34,36 +39,36 @@ public Login(Long mentscape_Userid, String mentscape_username,String mentscape_E
 
 public Long getId() 
 {
-	return mentscape_Userid;
+	return userid;
 }
 public void setId(Long id) 
 {
-	this.mentscape_Userid = id;
+	this.userid = id;
 }
 public String getUsername() 
 {
-	return mentscape_username;
+	return username;
 }
-public void setUsername(String username) 
+public void setUsername(String Username) 
 {
-	this.mentscape_username = username;
+	this.username = Username;
 }
 public String getEmailid() 
 {
-	return mentscape_Emailid;
+	return emailid;
 }
 public void setEmailid(String Emailid) 
 {
-	this.mentscape_Emailid = Emailid;
+	this.emailid = Emailid;
 }
 
 public String getPassword() 
 {
-	return mentscape_password;
+	return password;
 }
-public void setPassword(String password) 
+public void setPassword(String Password) 
 {
-	this.mentscape_password = password;
+	this.password = Password;
 }
 }
 

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,50 +19,73 @@ import com.example.Mentscape.LoginService.LoginService;
 import com.example.Mentscape.Logindomain.Login;
 import com.example.Mentscape.Loginrepository.LoginRepository;
 
+
  
 @Controller
 public class LoginController {
 	 @Autowired
 	    private LoginRepository LoginRepo;
 	     
+	    /*@GetMapping("")
+	    public String viewHomePage() 
+	    {
+	        return "Homepagemain";
+	    }*/
+	    
 	    @GetMapping("")
-	    public String viewHomePage() {
-	        return "index";
-	    }
+		public String viewLoginpage(Model model) {		
+			
+			model.addAttribute("login",new Login());
+			
+			return "LoginPage";
+		}
+	    
+	    /*@GetMapping("/LoginPage")
+	    public String ViewLoginPage()
+	    {
+	    	return "LoginPage";
+	    }*/
 	
 @Autowired
     private LoginService LoginService;
- 
-     
       public void setloginservice(LoginService LoginService) 
       {
     	 this.LoginService = LoginService;
       }
-    @GetMapping("/login")
+    @GetMapping("/register")
           
     public ModelAndView login() {
      ModelAndView mav = new ModelAndView("login");
-        mav.addObject("user", new Login());
+        mav.addObject("login", new Login());
         return mav;
     }
-    @PostMapping("/login")
-    public String login(@ModelAttribute("user") Login user ) {
+      @GetMapping("/LoginPage")
+  	public String loginHomePage() {
+  		
+  		return "Homepagemain";
+  		
+  	}
+
+    @PostMapping("/process_register")
+    public String login(@ModelAttribute("login") Login login ) {
+    LoginRepo.save(login);
+    return "Homepagemain";
     
-     Login oauthUser = LoginService.login(user.getUsername(), user.getEmailid(),user.getPassword());
+    /* Login oauthUser = LoginService.login(login.getUsername(), login.getEmailid(),login.getPassword());
     
  
      System.out.print(oauthUser);
      if(Objects.nonNull(oauthUser))
      {
   
-     return "redirect:/";
+     return "redirect:/Homepagemain";
     
     
      } else {
-     return "redirect:/index";
+     return "redirect:/Login";
     
     
-     }
+     }*/
  
 }
     
@@ -70,6 +94,6 @@ public class LoginController {
     {
     
   
-        return "redirect:/index";
+        return "redirect:/Homepagemain";
     }
 }
